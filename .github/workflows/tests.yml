@@ -1,0 +1,52 @@
+name: Task 19 Django eCommerce tests
+on:
+  push:
+    branches:
+      - task19-resubmission
+      - main
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        database: [sqlite, mysql]
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: test-only-password
+          MYSQL_DATABASE: ecommerce_db
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h localhost -ptest-only-password"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
+    env:
+      DB_ENGINE: ${{ matrix.database }}
+      DB_NAME: ecommerce_db
+      DB_USER: root
+      DB_PASSWORD: test-only-password
+      DB_HOST: 127.0.0.1
+      DB_PORT: '3306'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install MySQL build prerequisites
+        run: sudo apt-get update && sudo apt-get install -y default-libmysqlclient-dev build-essential pkg-config
+      - name: Install application dependencies
+        run: python -m pip install -r requirements.txt
+      - name: Check Django configuration
+        run: python manage.py check
+      - name: Check migrations
+        run: python manage.py makemigrations --check --dry-run
+      - name: Apply migrations
+        run: python manage.py migrate --noinput
+      - name: Run Task 19 tests
+        run: python manage.py test grabsomore eCommerce
+
