@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Invoice {{ invoice.pk }}{% endblock %}
+{% block content %}
+<h1>Invoice #{{ invoice.pk }}</h1><p>{{ invoice.created_at }} | {{ invoice.email }}</p>
+<div class="table-wrap"><table><thead><tr><th>Product</th><th>Unit price</th><th>Quantity</th><th>Subtotal</th></tr></thead><tbody>
+{% for item in invoice.items.all %}<tr><td>{{ item.product_name }}</td><td>R{{ item.unit_price }}</td><td>{{ item.quantity }}</td><td>R{{ item.subtotal }}</td></tr>{% endfor %}
+</tbody></table></div><p>Total: R{{ invoice.total }}</p>
+{% if invoice.emailed_at %}<p>Sent to email backend: {{ invoice.emailed_at }}</p>{% else %}
+<p>Email pending. Your purchase has been saved.</p><form method="post" action="{% url 'eCommerce:retry_invoice_email' invoice.pk %}">{% csrf_token %}<button>Retry invoice email</button></form>{% endif %}
+<p><a href="{% url 'eCommerce:invoice_list' %}">My invoices</a> | <a href="{% url 'eCommerce:products_list' %}">Continue shopping</a></p>
+{% endblock %}

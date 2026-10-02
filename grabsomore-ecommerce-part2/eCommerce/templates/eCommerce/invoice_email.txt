@@ -1,0 +1,9 @@
+Invoice #{{ invoice.pk }}
+Date: {{ invoice.created_at }}
+Buyer: {{ invoice.buyer.username }}
+Email: {{ invoice.email }}
+{% for item in invoice.items.all %}
+{{ item.product_name }}: {{ item.quantity }} x R{{ item.unit_price }} = R{{ item.subtotal }}
+{% endfor %}
+Total: R{{ invoice.total }}
+Thank you for your order.
