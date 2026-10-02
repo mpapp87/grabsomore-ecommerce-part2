@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block title %}Reset Email Sent{% endblock %}
+{% block content %}
+<h1>Reset Email Sent</h1>
+<p>If an account with email {{ email }} exists, a password reset link has been sent. Please check your inbox.</p>
+<a href="{% url 'grabsomore:login' %}">Return to Login</a>
+{% endblock %}

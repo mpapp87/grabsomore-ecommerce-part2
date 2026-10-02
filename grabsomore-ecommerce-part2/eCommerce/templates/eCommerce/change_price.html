@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Change Price{% endblock %}
+{% block content %}
+<h2>Change Product Price</h2>
+
+{% if error %}
+    <p>{{ error }}</p>
+{% endif %}
+
+<form method="POST">
+    {% csrf_token %}
+    <label>Product name:</label>
+    <input type="text" name="product" required><br><br>
+
+    <label>New price:</label>
+    <input type="text" name="new_price" required><br><br>
+
+    <button type="submit">Update Price</button>
+</form>
+{% endblock %}
