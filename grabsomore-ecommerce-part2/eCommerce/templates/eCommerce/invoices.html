@@ -1,7 +1,0 @@
-{% extends "base.html" %}
-{% block title %}My invoices{% endblock %}
-{% block content %}
-<h1>My invoices</h1>
-{% for invoice in invoices %}<p><a href="{% url 'eCommerce:invoice_detail' invoice.pk %}">Invoice #{{ invoice.pk }}</a> — {{ invoice.created_at }}{% if not invoice.emailed_at %} — Email pending{% endif %}</p>{% empty %}<p>No purchases yet.</p>{% endfor %}
-<a href="{% url 'eCommerce:products_list' %}">Catalog</a>
-{% endblock %}

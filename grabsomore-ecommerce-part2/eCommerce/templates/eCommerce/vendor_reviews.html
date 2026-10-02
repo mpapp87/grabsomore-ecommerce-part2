@@ -1,7 +1,0 @@
-{% extends 'base.html' %}
-{% block title %}My Reviews{% endblock %}
-{% block content %}<h1>My Reviews</h1><p>Customer reviews across all your stores. Vendors can read feedback; buyers manage their own reviews.</p>
-<p><a href="{% url 'eCommerce:api_vendor_reviews' %}">Retrieve my reviews through the API</a></p>
-<form method="get" class="panel"><label for="review-search">Product, reviewer or comment</label><input id="review-search" name="q" value="{{ query }}"><label for="review-store">Store</label><select id="review-store" name="store"><option value="">All my stores</option>{% for store in stores %}<option value="{{ store.pk }}" {% if selected_store == store.pk|stringformat:'s' %}selected{% endif %}>{{ store.name }}</option>{% endfor %}</select><button>Filter reviews</button></form>
-{% for review in reviews %}<article class="panel"><p>{{ review.product.store.name }}</p><h2><a href="{% url 'eCommerce:product_detail' review.product_id %}">{{ review.product.name }}</a> · {{ review.rating }}/5</h2><p>By {{ review.buyer.username }} · {{ review.created_at|date:'j M Y' }}</p><span class="badge {% if not review.verified_purchase %}unverified{% endif %}">{% if review.verified_purchase %}Verified purchase{% else %}Unverified purchase{% endif %}</span><p>{{ review.comment|linebreaksbr }}</p></article>{% empty %}<p>No reviews match these filters.</p>{% endfor %}
-{% include 'eCommerce/pagination.html' with page=reviews %}{% endblock %}

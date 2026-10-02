@@ -1,9 +1,0 @@
-{% extends "base.html" %}
-{% block title %}Home{% endblock %}
-{% block content %}
-<div class="hero"><p class="eyebrow">Make yourself at home</p><h1>Welcome, {{ user.username }}.</h1><p class="lede">Discover independent stores and keep track of your next finds.</p></div>
-<div class="cards"><section class="card"><h2>Explore the collection</h2><p>Browse products and read customer reviews.</p><a class="button" href="{% if nav_vendor %}{% url 'eCommerce:my_products' %}{% else %}{% url 'eCommerce:products_list' %}{% endif %}">{% if nav_vendor %}My Products{% else %}Browse products{% endif %}</a></section>
-{% if nav_buyer %}<section class="card"><h2>Ready to check out?</h2><p>Review your cart, complete your order, and receive an invoice.</p><a class="button" href="{% url 'eCommerce:main_cart_page' %}">View cart</a></section>{% endif %}
-{% if nav_vendor %}<section class="card"><h2>Your storefront</h2><p>Manage your stores, product details, prices, and stock.</p><a class="button" href="{% url 'eCommerce:stores' %}">Manage my stores and products</a></section>{% endif %}
-<section class="card"><h2>From the community</h2><p>Explore product discussions and ideas.</p><a href="{% url 'eCommerce:reddit_feed' %}">Read community posts →</a></section></div>
-{% endblock %}

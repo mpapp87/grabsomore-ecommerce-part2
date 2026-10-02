@@ -1,5 +1,0 @@
-{% extends 'base.html' %}
-{% block title %}Vendors{% endblock %}
-{% block content %}<h1>Vendors</h1><p>Choose a vendor, then a store to see its products.</p><div class="cards">
-{% for vendor in vendors %}<article class="card"><h2><a href="{% url 'eCommerce:vendor_stores' vendor.pk %}">{{ vendor.username }}</a></h2><p>{{ vendor.store_count }} store{{ vendor.store_count|pluralize }}</p><a href="{% url 'eCommerce:vendor_stores' vendor.pk %}">View stores</a></article>{% empty %}<p>No vendors yet.</p>{% endfor %}</div>
-{% include 'eCommerce/pagination.html' with page=vendors %}{% endblock %}

@@ -1,7 +1,0 @@
-{% extends "base.html" %}
-{% block title %}Review {{ product.name }}{% endblock %}
-{% block content %}
-<h1>Review {{ product.name }}</h1><p>Reviews are marked verified when your account has purchased this product.</p>
-<form method="post">{% csrf_token %}{{ form.as_p }}<button type="submit">Save review</button></form>
-<a href="{% url 'eCommerce:product_detail' product.pk %}">Back to product</a>
-{% endblock %}

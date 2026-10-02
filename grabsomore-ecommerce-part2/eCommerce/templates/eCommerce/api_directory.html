@@ -1,7 +1,0 @@
-{% extends 'base.html' %}
-{% block title %}Web API{% endblock %}
-{% block content %}<h1>Web API</h1><p>Your browser login authenticates these endpoints. Open a link to view JSON and the browsable API controls.</p><div class="cards">
-<section class="card"><h2>Vendors and stores</h2><p><a href="{% url 'eCommerce:api_vendors' %}">Vendor API</a></p><p><a href="{% url 'eCommerce:api_stores' %}">Store API</a></p>{% if nav_vendor %}<p>Open Store API, fill in Name and Description, then choose POST to create a store owned by you.</p>{% endif %}</section>
-<section class="card"><h2>Products</h2><a href="{% url 'eCommerce:api_products' %}">Product API</a>{% if nav_vendor %}<p>Use the POST form to choose one of your stores, then enter a name, price and stock quantity. Other vendors' stores are rejected.</p>{% endif %}</section>
-<section class="card"><h2>Reviews</h2><p><a href="{% url 'eCommerce:api_reviews' %}">All reviews API</a></p>{% if nav_vendor %}<p><a href="{% url 'eCommerce:api_vendor_reviews' %}">My Reviews API</a></p>{% endif %}<p>Reviews are read-only through the API. Buyers write, edit or delete their reviews from product pages.</p></section>
-</div>{% endblock %}
